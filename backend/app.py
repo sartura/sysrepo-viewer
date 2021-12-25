@@ -8,8 +8,7 @@ CORS(app)
 
 
 @app.route("/", methods=["POST"])
-def hello_world():
-    # fetch all sysrepo data based on the query
+def get_sysrepo_data():
     jobj = json.loads(request.data)
     return {
 
