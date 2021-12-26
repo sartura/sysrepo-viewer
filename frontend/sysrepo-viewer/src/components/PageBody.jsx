@@ -14,28 +14,19 @@ export default function PageBody() {
     function editCallback(data) {
         console.log(data)
 
-        // construct path
-        let valuePath = ""
-        for (const n of data.namespace) {
-            valuePath += "/" + n
-        }
-        valuePath += "/" + data.name
-
         setLoading(true)
 
         axios.post('http://localhost:5000/edit',
             {
-                path: valuePath,
-                datastore,
-                value: data.new_value
+                modified: data.updated_src
             })
             .then(function (response) {
-                const newObject = viewerObject
-                newObject["sysrepo-viewer-example:test-container"]["valid"] = JSON.parse(data.new_value)
-                setViewerObject(newObject)
+                setViewerObject(data.updated_src)
                 setLoading(false)
             })
             .catch(function (error) {
+                // TODO: display error
+                // setLoading(false)
             })
 
         return false
@@ -70,7 +61,7 @@ export default function PageBody() {
                         <label htmlFor="path" className="block text-sm font-medium mb-1">
                             Path
                         </label>
-                        <input type="text" id="path" className="flex-1 block w-full rounded-none sm:text-sm border-gray-300" placeholder="Enter path to get" onChange={event => setPath(event.target.value)} />
+                        <input type="text" id="path" className="flex-1 text-black font-semibold font-mono block w-full rounded-none sm:text-sm border-gray-300" placeholder="Enter path to get" onChange={event => setPath(event.target.value)} />
                     </div>
 
                     <div className="m-2">
@@ -81,7 +72,7 @@ export default function PageBody() {
                             id="datastore"
                             name="datastore"
                             autoComplete="datastore"
-                            className="block py-2 px-3 bg-white sm:text-sm w-full" onChange={event => setDatastore(event.target.value)}>
+                            className="block py-2 px-3 text-black font-semibold font-mono bg-white sm:text-sm w-full" onChange={event => setDatastore(event.target.value)}>
                             <option>Running</option>
                             <option>Operational</option>
                         </select>

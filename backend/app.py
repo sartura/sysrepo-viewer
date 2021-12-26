@@ -21,23 +21,15 @@ def get_sysrepo_data():
             data = session.get_data_ly(path)
             return json.loads(data.print_mem('json'))
 
-    return {"ok": 100}
-
 
 @app.route("/edit", methods=["POST"])
 def edit_sysrepo_data():
     jobj = json.loads(request.data)
 
-    path = jobj["path"]
-    datastore = jobj["datastore"]
-    value = jobj["value"]
-
-    print(path)
-    print(datastore)
-    print(value)
+    print(json.dumps(jobj["modified"]))
 
     with sysrepo.SysrepoConnection() as connection:
-        with connection.start_session(datastore) as session:
-            session.edit_batch_ly()
-
-    return {"ok": 100}
+        with connection.start_session() as session:
+            session.edit_batch_ly(connection.get_ly_ctx().parse_data_mem(
+                json.dumps(jobj["modified"]), "json", config=True, strict=True))
+            session.apply_changes()
