@@ -58,7 +58,7 @@ export default function PageBody() {
     return (
         <div className="flex-wrap">
             <div className="flex">
-                <div className="w-1/2 m-1 p-5 border-2 border-gray-400 text-gray-400 overflow-y-auto h-[30rem]">
+                <div className="w-1/2 m-4 p-5 border-2 border-gray-400 text-gray-400 overflow-y-auto h-[30rem]">
                     <h1 className="font-bold text-lg mb-2 uppercase">Editor</h1>
                     <ReactJson src={editObject}
                         theme="ocean"
@@ -71,7 +71,7 @@ export default function PageBody() {
                         collapseStringsAfterLength={20}
                         validationMessage={null} />
                 </div>
-                <div className="w-1/2 m-1 p-5 border-2 border-gray-400 text-gray-400 overflow-y-auto h-[30rem]">
+                <div className="w-1/2 m-4 p-5 border-2 border-gray-400 text-gray-400 overflow-y-auto h-[30rem]">
                     <h1 className="font-bold text-lg mb-2 uppercase">Viewer</h1>
                     <ReactJson src={viewObject}
                         theme="ocean"
@@ -83,7 +83,7 @@ export default function PageBody() {
                         enableClipboard={false} />
                 </div>
             </div>
-            <div className="m-2 p-5 text-gray-400 border-2 border-gray-400 flex-wrap">
+            <div className="m-4 p-5 text-gray-400 border-2 border-gray-400 flex-wrap">
                 <h1 className="font-bold text-lg uppercase">sysrepo options</h1>
                 <div className="m-2">
                     <div className="m-2 flex">
