@@ -1,0 +1,19 @@
+<test-container xmlns="http://sysrepo-viewer.com/example">
+    <names>
+        <index>0</index>
+        <name>abc</name>
+    </names>
+    <names>
+        <index>1</index>
+        <name>bcd</name>
+    </names>
+    <names>
+        <index>2</index>
+        <name>cde</name>
+    </names>
+    <names>
+        <index>3</index>
+        <name>def</name>
+    </names>
+    <valid>true</valid>
+</test-container>
