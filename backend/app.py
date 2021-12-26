@@ -33,3 +33,4 @@ def edit_sysrepo_data():
             session.edit_batch_ly(connection.get_ly_ctx().parse_data_mem(
                 json.dumps(jobj["modified"]), "json", config=True, strict=True))
             session.apply_changes()
+            return {}
