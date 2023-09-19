@@ -19,6 +19,7 @@ export default function PageBody() {
   function applyChanges() {
     axios.post(`${address}/edit`, {
       modified: editObject,
+      timeout,
     })
       .then(function (response) {
         setViewObject(editObject);
@@ -32,6 +33,7 @@ export default function PageBody() {
   function importData() {
     axios.post(`${address}/import`, {
       data: editObject,
+      timeout,
     })
       .then(function (response) {
         setViewObject(editObject);
