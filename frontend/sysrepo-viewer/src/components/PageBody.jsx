@@ -28,6 +28,18 @@ export default function PageBody() {
       });
   }
 
+  function importData() {
+    axios.post(`${address}/import`, {
+      modified: editObject,
+    })
+      .then(function (response) {
+        setViewObject(editObject);
+      })
+      .catch(function (error) {
+        showError(error);
+      });
+  }
+
   function getData(data) {
     console.log(path);
     console.log(datastore);
@@ -155,13 +167,20 @@ export default function PageBody() {
         </div>
         <h1 className="font-bold text-lg uppercase">actions</h1>
         <div className="flex-wrap">
-          <div className="flex">
+          <div className="flex-row">
             <button
               type="button"
               className="m-2 justify-center py-2 px-4 text-sm font-medium rounded-none uppercase text-white bg-indigo-600"
               onClick={applyChanges}
             >
               apply changes
+            </button>
+            <button
+              type="button"
+              className="m-2 justify-center py-2 px-4 text-sm font-medium rounded-none uppercase text-white bg-indigo-600"
+              onClick={importData}
+            >
+              import data
             </button>
           </div>
         </div>
