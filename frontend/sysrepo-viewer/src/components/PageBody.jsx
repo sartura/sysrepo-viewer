@@ -7,16 +7,19 @@ function showError(error) {
 }
 
 export default function PageBody() {
-  const [path, setPath] = useState("");
+  const [path, setPath] = useState("/sysrepo-viewer-example:test-container");
   const [datastore, setDatastore] = useState("Running");
   const [viewObject, setViewObject] = useState({});
   const [editObject, setEditObject] = useState({});
+  const [address, setAddress] = useState("http://localhost:5000");
+  const [timeout, setTimeout] = useState(0);
 
   // /sysrepo-viewer-example:test-container
 
   function applyChanges() {
-    axios.post("http://localhost:5000/edit", {
+    axios.post(`${address}/edit`, {
       modified: editObject,
+      timeout,
     })
       .then(function (response) {
         setViewObject(editObject);
@@ -27,11 +30,24 @@ export default function PageBody() {
       });
   }
 
+  function importData() {
+    axios.post(`${address}/import`, {
+      data: editObject,
+      timeout,
+    })
+      .then(function (response) {
+        setViewObject(editObject);
+      })
+      .catch(function (error) {
+        showError(error);
+      });
+  }
+
   function getData(data) {
     console.log(path);
     console.log(datastore);
 
-    axios.get("http://localhost:5000/", {
+    axios.get("${address}/", {
       path,
       datastore: datastore.toLowerCase(),
     }).then(function (response) {
@@ -90,7 +106,23 @@ export default function PageBody() {
         <h1 className="font-bold text-lg uppercase">sysrepo options</h1>
         <div className="m-2">
           <div className="m-2 flex">
-            <div className="w-1/2 m-2">
+            <div className="w-1/3 m-2">
+              <label
+                htmlFor="address"
+                className="block text-sm font-medium mb-1 uppercase"
+              >
+                Address
+              </label>
+              <input
+                type="text"
+                id="address"
+                className="flex-1 text-black font-semibold font-mono block w-full rounded-none sm:text-sm border-gray-300"
+                value={address}
+                onChange={(event) => setAddress(event.target.value)}
+              />
+            </div>
+
+            <div className="w-1/3 m-2">
               <label
                 htmlFor="path"
                 className="block text-sm font-medium mb-1 uppercase"
@@ -101,12 +133,12 @@ export default function PageBody() {
                 type="text"
                 id="path"
                 className="flex-1 text-black font-semibold font-mono block w-full rounded-none sm:text-sm border-gray-300"
-                placeholder="Enter path to get"
+                value={path}
                 onChange={(event) => setPath(event.target.value)}
               />
             </div>
 
-            <div className="w-1/2 m-2">
+            <div className="w-1/3 m-2">
               <label
                 htmlFor="datastore"
                 className="block text-sm font-medium mb-1 uppercase"
@@ -126,6 +158,24 @@ export default function PageBody() {
             </div>
           </div>
 
+          <div className="m-2 flex">
+            <div className="w-1/3 px-2">
+              <label
+                htmlFor="timeout"
+                className="block text-sm font-medium mb-1 uppercase"
+              >
+                Timeout
+              </label>
+              <input
+                type="number"
+                id="timeout"
+                className="flex-1 text-black font-semibold font-mono block w-full rounded-none sm:text-sm border-gray-300"
+                value={timeout}
+                onChange={(event) => setTimeout(event.target.value)}
+              />
+            </div>
+          </div>
+
           <div className="m-2 w-1/2">
             <button
               type="button"
@@ -138,13 +188,20 @@ export default function PageBody() {
         </div>
         <h1 className="font-bold text-lg uppercase">actions</h1>
         <div className="flex-wrap">
-          <div className="flex">
+          <div className="flex-row">
             <button
               type="button"
               className="m-2 justify-center py-2 px-4 text-sm font-medium rounded-none uppercase text-white bg-indigo-600"
               onClick={applyChanges}
             >
               apply changes
+            </button>
+            <button
+              type="button"
+              className="m-2 justify-center py-2 px-4 text-sm font-medium rounded-none uppercase text-white bg-indigo-600"
+              onClick={importData}
+            >
+              import data
             </button>
           </div>
         </div>
