@@ -12,6 +12,7 @@ export default function PageBody() {
   const [viewObject, setViewObject] = useState({});
   const [editObject, setEditObject] = useState({});
   const [address, setAddress] = useState("http://localhost:5000");
+  const [timeout, setTimeout] = useState(0);
 
   // /sysrepo-viewer-example:test-container
 
@@ -103,7 +104,7 @@ export default function PageBody() {
         <h1 className="font-bold text-lg uppercase">sysrepo options</h1>
         <div className="m-2">
           <div className="m-2 flex">
-            <div className="w-1/2 m-2">
+            <div className="w-1/3 m-2">
               <label
                 htmlFor="address"
                 className="block text-sm font-medium mb-1 uppercase"
@@ -119,7 +120,7 @@ export default function PageBody() {
               />
             </div>
 
-            <div className="w-1/2 m-2">
+            <div className="w-1/3 m-2">
               <label
                 htmlFor="path"
                 className="block text-sm font-medium mb-1 uppercase"
@@ -135,7 +136,7 @@ export default function PageBody() {
               />
             </div>
 
-            <div className="w-1/2 m-2">
+            <div className="w-1/3 m-2">
               <label
                 htmlFor="datastore"
                 className="block text-sm font-medium mb-1 uppercase"
@@ -152,6 +153,24 @@ export default function PageBody() {
                 <option>Running</option>
                 <option>Operational</option>
               </select>
+            </div>
+          </div>
+
+          <div className="m-2 flex">
+            <div className="w-1/3 px-2">
+              <label
+                htmlFor="timeout"
+                className="block text-sm font-medium mb-1 uppercase"
+              >
+                Timeout
+              </label>
+              <input
+                type="number"
+                id="timeout"
+                className="flex-1 text-black font-semibold font-mono block w-full rounded-none sm:text-sm border-gray-300"
+                value={timeout}
+                onChange={(event) => setTimeout(event.target.value)}
+              />
             </div>
           </div>
 
