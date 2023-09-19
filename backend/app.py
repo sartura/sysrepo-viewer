@@ -22,6 +22,15 @@ def get_sysrepo_data():
             return json.loads(data.print_mem('json'))
 
 
+@app.route("/import", methods=["POST"])
+def import_sysrepo_data():
+    jobj = json.loads(request.data)
+    with sysrepo.SysrepoConnection() as connection:
+        with connection.start_session() as session:
+            session.edit_batch_ly(connection.get_ly_ctx().parse_data_mem(json.dumps(jobj), "json", config=True, strict=True))
+            session.apply_changes()
+            return {}
+
 @app.route("/edit", methods=["POST"])
 def edit_sysrepo_data():
     jobj = json.loads(request.data)
