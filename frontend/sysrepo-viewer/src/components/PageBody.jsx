@@ -7,7 +7,7 @@ function showError(error) {
 }
 
 export default function PageBody() {
-  const [path, setPath] = useState("");
+  const [path, setPath] = useState("/sysrepo-viewer-example:test-container");
   const [datastore, setDatastore] = useState("Running");
   const [viewObject, setViewObject] = useState({});
   const [editObject, setEditObject] = useState({});
@@ -93,7 +93,7 @@ export default function PageBody() {
           <div className="m-2 flex">
             <div className="w-1/2 m-2">
               <label
-                htmlFor="path"
+                htmlFor="address"
                 className="block text-sm font-medium mb-1 uppercase"
               >
                 Address
@@ -118,7 +118,7 @@ export default function PageBody() {
                 type="text"
                 id="path"
                 className="flex-1 text-black font-semibold font-mono block w-full rounded-none sm:text-sm border-gray-300"
-                placeholder="Enter path to get"
+                value={path}
                 onChange={(event) => setPath(event.target.value)}
               />
             </div>
