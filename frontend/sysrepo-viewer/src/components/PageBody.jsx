@@ -11,6 +11,7 @@ export default function PageBody() {
   const [datastore, setDatastore] = useState("Running");
   const [viewObject, setViewObject] = useState({});
   const [editObject, setEditObject] = useState({});
+  const [address, setAddress] = useState("http://localhost:5000");
 
   // /sysrepo-viewer-example:test-container
 
@@ -90,6 +91,22 @@ export default function PageBody() {
         <h1 className="font-bold text-lg uppercase">sysrepo options</h1>
         <div className="m-2">
           <div className="m-2 flex">
+            <div className="w-1/2 m-2">
+              <label
+                htmlFor="path"
+                className="block text-sm font-medium mb-1 uppercase"
+              >
+                Address
+              </label>
+              <input
+                type="text"
+                id="address"
+                className="flex-1 text-black font-semibold font-mono block w-full rounded-none sm:text-sm border-gray-300"
+                value={address}
+                onChange={(event) => setAddress(event.target.value)}
+              />
+            </div>
+
             <div className="w-1/2 m-2">
               <label
                 htmlFor="path"
