@@ -16,7 +16,7 @@ export default function PageBody() {
   // /sysrepo-viewer-example:test-container
 
   function applyChanges() {
-    axios.post("http://localhost:5000/edit", {
+    axios.post(`${address}/edit`, {
       modified: editObject,
     })
       .then(function (response) {
@@ -32,7 +32,7 @@ export default function PageBody() {
     console.log(path);
     console.log(datastore);
 
-    axios.get("http://localhost:5000/", {
+    axios.get("${address}/", {
       path,
       datastore: datastore.toLowerCase(),
     }).then(function (response) {
