@@ -31,7 +31,7 @@ export default function PageBody() {
 
   function importData() {
     axios.post(`${address}/import`, {
-      modified: editObject,
+      data: editObject,
     })
       .then(function (response) {
         setViewObject(editObject);
